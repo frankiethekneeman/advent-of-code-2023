@@ -83,6 +83,8 @@ library problems
     build-depends:
         AdventOfCode:lib,
         AdventOfCode:helpers,
+        Cabal,
+        ghc,
         --Add your dependencies here, with trailing commas
     exposed-modules:
         DayOne.PartOne
