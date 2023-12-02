@@ -8,6 +8,7 @@ module Lib.Solution (
     adventOfCodeConfigurable
 )where
 
+import Data.Bifunctor(first)
 import Lib.Types
 import Lib.Processing
 import System.FilePath((</>))
@@ -30,7 +31,7 @@ adventOfCode :: Answer a => Eq a
 adventOfCode testCases parse solve baseDir = (,) <$> testResults <*> result
     where testResults = test parse solve resolvedTestCases
           result = catch Left . readAndApply (dirname </> "input") $ process parse solve
-          resolvedTestCases = map (\(name, res) -> (dirname </> name, res)) testCases
+          resolvedTestCases = map (first (dirname </>)) testCases
           dirname = baseDir
 
 {-|

@@ -87,7 +87,7 @@ doDisplay :: Answer a => IO ([TestResult], Result a) -> IO ()
 doDisplay = (uncurry display =<<)
 
 doTest :: Answer a => IO ([TestResult], Result a) -> IO ()
-doTest = (test =<<) . (fmap fst)
+doTest = (test . fst =<<)
 
 getInputDir :: String -> IO String
 getInputDir day = combine <$> basePath <*> pure day

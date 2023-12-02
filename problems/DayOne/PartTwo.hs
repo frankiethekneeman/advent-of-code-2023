@@ -54,4 +54,4 @@ replacePrefix prefix replacement str = replaced `orElse` str
 
 -- | Solution for Day One, Part Two
 solution:: AdventProblem Out
-solution = adventOfCode examples (always $ lineByLine digitDecode) (sumOfCalibrationValues)
+solution = adventOfCode examples (always $ lineByLine digitDecode) sumOfCalibrationValues

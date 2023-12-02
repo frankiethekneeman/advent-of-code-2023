@@ -29,7 +29,7 @@ calibrationValue garbled = maybeToResult "No digits found" number
 
 sumOfCalibrationValues :: [String] -> Result Int
 sumOfCalibrationValues document = sum <$> values
-    where values = sequence $ map calibrationValue document
+    where values = mapM calibrationValue document
 
 
 -- | Solution for Day One, Part One
