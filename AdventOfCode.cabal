@@ -86,6 +86,7 @@ library problems
         Cabal,
         ghc,
         containers,
+        extra,
         --Add your dependencies here, with trailing commas
     exposed-modules:
         DayOne.PartOne
