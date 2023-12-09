@@ -41,4 +41,3 @@ Lift a Maybe into a Result with a meaningful error.
 maybeToResult :: String -> Maybe a -> Result a
 maybeToResult _ (Just x) = Right x
 maybeToResult s Nothing = Left s
-
