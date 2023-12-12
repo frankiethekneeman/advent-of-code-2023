@@ -37,8 +37,7 @@ fromStr "green" = Right Green
 fromStr s = Left $ "Expected known color but got " ++ s
 
 instance ReadableFromToken Color where
-    readTok (StrTok s) = fromStr s
-    readTok _ = Left "Can only parse color from string"
+    readFromString = fromStr
 
 instance Grokkable (Color, Integer) where
     fromResult = grok2 $ flip (,)

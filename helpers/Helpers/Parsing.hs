@@ -447,6 +447,22 @@ This class allows reading from a token to recover type information.
 -}
 class ReadableFromToken a where
     readTok :: Token -> Result a
+    readTok (CharTok c) = readFromChar c
+    readTok (StrTok s) = readFromString s
+    readTok (IntTok i) = readFromInteger i
+    readTok o = toLeft "a definition for readTok" o
+    
+    readFromChar :: Char -> Result a
+    readFromChar c = Left $ "Unable to parse from Integer: " ++ show c
+ 
+    readFromInteger :: Integer -> Result a
+    readFromInteger i = Left $ "Unable to parse from Integer: " ++ show i
+ 
+    readFromString :: String -> Result a
+    readFromString s = Left $ "Unable to parse from String: " ++ show s
+
+    {-# MINIMAL readTok | readFromChar | readFromInteger | readFromString #-}
+
 
 -- | Read a string from a StrTok
 instance ReadableFromToken String where
@@ -468,6 +484,25 @@ instance (ReadableFromToken a, ReadableFromToken b) => ReadableFromToken (Either
         where fromTrys _ (Right r) = Right . Right $ r
               fromTrys (Right l) _ = Right . Left $ l
               fromTrys (Left e) (Left e2) = Left $ "Tried but: " ++ e ++ " or " ++ e2
+
+-- class ReadableFromToken a => ReadableFromString a where
+--     readString :: String -> Result a
+--      
+--     readTok (StrTok s) = readString s
+--     readTok o = toLeft "String" o
+-- 
+-- class ReadableFromToken a => ReadableFromInteger a where
+--     readInteger :: Integer -> Result a
+-- 
+--     readTok (IntTok i) = readInteger i
+--     readTok o = toLeft "Integer" o
+-- 
+-- class ReadableFromToken a => ReadableFromChar a where
+--     readChar :: Char -> Result a
+-- 
+--     readTok (CharTok c) = readChar c
+--     readTok o = toLeft "Char" o
+  
 
 {-|
 Allow parsing from a ScanResult into an Either String a.  This is
